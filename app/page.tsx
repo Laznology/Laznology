@@ -1,31 +1,40 @@
 "use client"
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
-import { useRef } from "react"
+import { SplitText } from "gsap/SplitText"
+import { useRef, useEffect } from "react"
 
+gsap.registerPlugin(SplitText)
 
-gsap.registerPlugin(useGSAP)
-
-export default function Home() {
+export default function Home() {    
     const mainContainer = useRef<HTMLDivElement>(null)
     const teaTitle = useRef<HTMLDivElement>(null)
-    const teaCup = useRef<HTMLDivElement>(null)
-    const steam = useRef<HTMLDivElement>(null)
     const teaLeaves = useRef<HTMLDivElement>(null)   
-     const ceremony = useRef<HTMLDivElement>(null)
-    const quote = useRef<HTMLDivElement>(null)
-    
-    useGSAP(() => {
+    const laznologyRef = useRef<HTMLHeadingElement>(null)
+    const devRef = useRef<HTMLHeadingElement>(null)
+    const japaneseTextRef = useRef<HTMLSpanElement>(null)
+      useGSAP(() => {
         
         const tl = gsap.timeline();
 
-        const elements = [teaTitle.current, teaCup.current, steam.current, teaLeaves.current, ceremony.current, quote.current].filter(Boolean);
+        const elements = [teaTitle.current, teaLeaves.current].filter(Boolean);
         
         if (elements.length > 0) {
             gsap.set(elements, {
                 opacity: 0,
                 scale: 0.8,
             });
+        }
+          if (laznologyRef.current) {
+            gsap.set(laznologyRef.current, { opacity: 1 });
+        }
+        
+        if (devRef.current) {
+            gsap.set(devRef.current, { opacity: 1 });
+        }
+        
+        if (japaneseTextRef.current) {
+            gsap.set(japaneseTextRef.current, { opacity: 1 });
         }
 
 
@@ -36,61 +45,12 @@ export default function Home() {
             ease: "back.out(1.4)",
         })
 
-
-        .to(teaCup.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 1.5,
-            ease: "power3.out",
-        }, "-=0.7")
-
-
-        .to(steam.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            ease: "sine.inOut",
-        }, "-=0.8")
-
-
         .to(teaLeaves.current, {
             opacity: 1,
             scale: 1,
             duration: 1.5,
             ease: "power2.out",
         }, "-=0.5")
-
-
-        .to(ceremony.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 1.2,
-            ease: "power2.out",
-        }, "-=0.3")
-
-        .to(quote.current, {
-            opacity: 1,
-            scale: 1,
-            duration: 1.3,
-            ease: "power1.out",
-        }, "-=0.2")        
-        gsap.to(steam.current, {
-            y: -35,
-            opacity: 0.15,
-            duration: 3,
-            repeat: -1,
-            ease: "sine.inOut",
-        })
-
-        gsap.to(teaCup.current, {
-            y: -4,
-            rotation: 1,
-            duration: 5,
-            repeat: -1,
-            yoyo: true,
-            ease: "sine.inOut",
-        })        
-
 
         gsap.to(teaLeaves.current, {
             y: -12,
@@ -100,8 +60,7 @@ export default function Home() {
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
-        });
-
+        });        
         gsap.to(teaTitle.current, {
             filter: "brightness(1.05)",
             duration: 5,
@@ -109,6 +68,114 @@ export default function Home() {
             yoyo: true,
             ease: "sine.inOut",
         });
+        
+        if (laznologyRef.current) {
+            const splitLaznology = new SplitText(laznologyRef.current, { 
+                type: "chars",
+                charsClass: "char"
+            });
+            
+            gsap.set(splitLaznology.chars, { opacity: 0, y: 20 });
+
+            gsap.to(splitLaznology.chars, {
+                opacity: 1,
+                y: 0,
+                duration: 0.8,
+                stagger: 0.05,
+                ease: "back.out(1.7)",
+                delay: 1 
+            });
+        }
+        
+        if (devRef.current) {
+            const splitDev = new SplitText(devRef.current, {
+                type: "chars,words",
+                charsClass: "devChar"
+            });
+            
+            const firstWord = splitDev.words[0];
+            const firstWordChars = splitDev.chars.slice(0, firstWord.textContent?.length || 0);
+            const restChars = splitDev.chars.slice(firstWord.textContent?.length || 0);
+            
+            gsap.set([firstWordChars, restChars], { opacity: 0 });
+            
+            gsap.to(firstWordChars, {
+                opacity: 1,
+                duration: 0.2,
+                stagger: 0.05,
+                ease: "power2.in",
+                delay: 1.5
+            });
+            
+            gsap.to(firstWordChars, {
+                textShadow: "0 0 8px rgba(0,0,0,0.3)",
+                scale: 1.1,
+                duration: 0.3,
+                stagger: 0.02,
+                ease: "power1.out",
+                delay: 1.8
+            });
+            
+            gsap.to(firstWordChars, {
+                textShadow: "0 0 0px rgba(0,0,0,0)",
+                scale: 1,
+                duration: 0.5,
+                stagger: 0.01,
+                ease: "elastic.out(1.2, 0.3)",
+                delay: 2.1
+            });
+            
+            gsap.to(restChars, {
+                opacity: 1,
+                stagger: 0.02,
+                duration: 0.8,
+                ease: "power2.out",
+                delay: 2.3
+            });
+
+            gsap.to(firstWord, {
+                scale: 1.03,
+                duration: 1.2,
+                repeat: -1,
+                yoyo: true,
+                ease: "sine.inOut",
+                delay: 2.8
+            });
+        }       
+        if (japaneseTextRef.current) {
+            const splitJapanese = new SplitText(japaneseTextRef.current, { 
+                type: "chars",
+                charsClass: "japaneseChar"
+            });
+            
+            gsap.set(splitJapanese.chars, { 
+                opacity: 0,
+                scale: 0.9,
+                filter: "blur(4px)"
+            });
+            
+            gsap.to(splitJapanese.chars, {
+                opacity: 0.25, 
+                scale: 1,
+                filter: "blur(2px)",
+                duration: 0.7,
+                stagger: 0.08,
+                ease: "power2.out",
+                delay: 1.2
+            });
+            
+            splitJapanese.chars.forEach((char, i) => {
+                gsap.to(char, {
+                    y: -5 + (i % 3) * 2,
+                    opacity: 0.2 + (i % 3) * 0.05,
+                    duration: 2 + (i % 2), 
+                    repeat: -1,
+                    yoyo: true,
+                    ease: "sine.inOut",
+                    delay: i * 0.1
+                });
+            });
+        }
 }, [])
 
 return (        
@@ -116,45 +183,29 @@ return (
             ref={mainContainer}
             className="h-full w-full bg-gray-50 overflow-hidden relative flex flex-col items-center justify-center"
         >
-            <div className={"absolute inset-0 flex items-center justify-center z-10"}>
+            <div   className={"absolute inset-0 flex items-center justify-center z-10"}>
                 <span className="block p-4 text-9xl text-gray-200 filter blur-[2px] font-jetbrains-mono">イラジー</span>
             </div>
 
             <div className="absolute inset-0 opacity-5">
                 <div className="w-full h-full bg-gradient-to-br from-gray-200 via-white to-gray-100"></div>
-            </div>
-
-            <div 
+            </div>            <div 
                 ref={teaTitle}
                 className="text-center mb-16 z-20"
             >
-                <h1 className="text-6xl md:text-9xl font-antonio text-gray-800 mb-4 tracking-widest">
+                <h1 
+                    ref={laznologyRef}
+                    className="text-6xl md:text-9xl font-antonio text-gray-800 mb-4 tracking-widest"
+                >
                     Laznology
                 </h1>
-                <h2 className="text-lg md:text-3xl font-noto-serif-jp text-gray-600 tracking-[0.3em]">
+                <h2 
+                    ref={devRef}
+                    className="text-lg md:text-3xl font-noto-serif-jp text-gray-600 tracking-[0.3em]"
+                >
                     !Dev, just people
                 </h2>
-                <div className="w-32 h-1 bg-gray-800 mx-auto mt-4"></div>
-            </div>            
-
-
-            <div 
-                ref={steam}
-                className="absolute"
-                style={{ top: '45%' }}
-            >
-                {[0, 1, 2, 3].map((index) => (
-                    <div 
-                        key={index}
-                        className="w-2 h-10 bg-gray-300 opacity-40 absolute"
-                        style={{
-                            left: `${index * 8 - 10}px`,
-                            height: `${8 + index * 2}px`,
-                            borderRadius: '50px',
-                            filter: 'blur(1px)'
-                        }}
-                    ></div>
-                ))}
+                <div className="w-32 h-1 bg-gray-800 mx-auto mt-4"></div>            
             </div>
 
             <div 
@@ -174,12 +225,7 @@ return (
                 ))}
             </div>                       
             
-            <div className="absolute inset-0 opacity-5 pointer-events-none z-0">
-                <div className="w-full h-full" style={{
-                    backgroundImage: 'radial-gradient(circle, rgba(0, 0, 0, 0.1) 1px, transparent 1px)',
-                    backgroundSize: '20px 20px'
-                }}></div>
-            </div>
+
             
         </div>
     )

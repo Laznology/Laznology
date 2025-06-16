@@ -6,6 +6,7 @@ import { ScrollTrigger } from "gsap/all";
 import { fetchGuestbooks } from "@/lib/api/guestbook";
 import { toast } from "sonner";
 import type { Guestbook } from "@/types/guestbook";
+import { Icon } from "@iconify/react";
 gsap.registerPlugin(ScrollTrigger)
 
 export default function GuestbookPage(){  
@@ -66,7 +67,6 @@ export default function GuestbookPage(){
         scrub: true,
         pin: true,
         anticipatePin: 1,
-        markers: true,
         onUpdate: (self) => {
         if(self.progress === 1) {
           textTimeline.to(".greetings", {
@@ -102,14 +102,17 @@ return (
   <div ref={containerRef} className="flex h-full w-full overflow-hidden relative justify-center">
     <div ref={mainRef} className="flex flex-col items-center justify-center">
       <h1 className="text-8xl font-semibold font-antonio">Guestbook</h1>
+      <div className="scroll-hint mt-8 flex flex-col items-center">
+        <p className="text-base font-jetbrains-mono md:text-lg text-black mb-3">Scroll Down</p>
+        <Icon icon="line-md:chevron-double-down" className="animate-bounce text-3xl md:text-4xl text-black" />
+      </div>
     </div>    
     <div ref={guestbookWrapperRef} className="absolute inset-0 bg-black flex mx-auto w-full h-full z-[5]">
       <div className="flex flex-col items-center h-full w-full overflow-y-auto scrollbar-hide justify-center">
         <div className="text-center">
           <h2 className="greetings text-6xl font-antonio text-white mb-4">Welcome to Our Guestbook</h2>
           <p className="desc text-gray-300 text-lg max-w-2xl mx-auto">
-            We appreciate you taking the time to visit. Please feel free to leave your thoughts, 
-            comments, or messages for us and other visitors to see.
+           Still Dev, my brain empty for this 
           </p>
         </div>
       </div>

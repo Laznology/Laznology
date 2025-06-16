@@ -4,8 +4,9 @@ import { usePathname } from "next/navigation"
 import { useMemo, useRef } from "react"
 import gsap from "gsap"
 import { useGSAP } from "@gsap/react"
+import { ScrollTrigger } from "gsap/ScrollTrigger"
 
-gsap.registerPlugin(useGSAP)
+gsap.registerPlugin(useGSAP, ScrollTrigger)
 
 const pages: Record<string, string> = {
     "/": "Homu",
@@ -42,8 +43,7 @@ export default function PageIndicators() {
   const pageNumber = useMemo(() => {
     return pageNumbers[pathname] || "000"
   }, [pathname])
-  
-  useGSAP(() => {
+    useGSAP(() => {
     if (locationText.current) {
       gsap.set(locationText.current, {
         opacity: 0,
@@ -70,6 +70,23 @@ export default function PageIndicators() {
         ease: "power2.out",
       })
     }
+
+    ScrollTrigger.create({
+      scroller: ".scrollable-content",
+      onUpdate: (self) => {
+        if (self.progress > 0.7) {
+          gsap.to(".page-indicator-text", { 
+            color: "white",
+            duration: 0.3
+          });
+        } else {
+          gsap.to(".page-indicator-text", { 
+            color: "#1f2937", 
+            duration: 0.3
+          });
+        }
+      }
+    });
   }, { dependencies: [pathname] })
   
   return (
@@ -81,8 +98,7 @@ export default function PageIndicators() {
         <div 
           ref={locationText}
           className="transform writing-vertical-rl"
-        >
-          <p className="font-jetbrains-mono text-2xl text-center font-bold text-gray-700 opacity-70 tracking-[0.3em]">
+        >          <p className="font-jetbrains-mono text-2xl text-center font-bold text-gray-700 opacity-70 tracking-[0.3em] page-indicator-text">
             {Array.from(pageName).map((char, index) => (
                 <span
                  key={index}
@@ -100,8 +116,7 @@ export default function PageIndicators() {
       >        
       <div 
           ref={pathText}
-        >          
-        <p className="font-antonio text-center text-2xl md:text-2xl lg:text-4xl text-gray-800 tracking-[0.2em] font-bold">
+        >            <p className="font-antonio text-center text-2xl md:text-2xl lg:text-4xl text-gray-800 tracking-[0.2em] font-bold page-indicator-text">
             {Array.from(pageNumber).map((number, index) => (
                 <span 
                   key={index} 
