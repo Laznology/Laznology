@@ -85,9 +85,9 @@ export default function Sidebar(){
     }
 
     return (
-        <div>
-            <button onClick={handleOpen} className={"cursor-pointer z-[999] text-black"}>
-                <Icon icon="line-md:menu-fold-left" width="32" height="32" className="text-black" />
+        <div className="flex items-center h-full">
+            <button onClick={handleOpen} className={"cursor-pointer z-[999] text-black flex items-center justify-center"}>
+                <Icon icon="line-md:menu-fold-left" width="20" height="20" className="text-black" />
             </button>
 
             <div ref={backdrop}

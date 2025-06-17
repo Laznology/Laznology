@@ -2,7 +2,7 @@
 import { useGSAP } from "@gsap/react"
 import gsap from "gsap"
 import { SplitText } from "gsap/SplitText"
-import { useRef, useEffect } from "react"
+import { useRef } from "react"
 
 gsap.registerPlugin(SplitText)
 
@@ -13,10 +13,11 @@ export default function Home() {
     const laznologyRef = useRef<HTMLHeadingElement>(null)
     const devRef = useRef<HTMLHeadingElement>(null)
     const japaneseTextRef = useRef<HTMLSpanElement>(null)
-      useGSAP(() => {
-        
+    const topRopeRef = useRef(null);
+    const bottomRopeRef = useRef(null);
+    
+    useGSAP(() => {
         const tl = gsap.timeline();
-
         const elements = [teaTitle.current, teaLeaves.current].filter(Boolean);
         
         if (elements.length > 0) {
@@ -60,14 +61,42 @@ export default function Home() {
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
-        });        
+        })        
         gsap.to(teaTitle.current, {
             filter: "brightness(1.05)",
             duration: 5,
             repeat: -1,
             yoyo: true,
             ease: "sine.inOut",
-        });
+        })
+        gsap.fromTo(".underline", {
+            opacity: 0,
+            width: "0%"
+        }, {
+            width: "100%",
+            opacity: 1,
+            duration: 1,
+            delay: 1,
+            ease: "power2.in,"
+        })
+
+        gsap.to(topRopeRef.current, {
+          attr: { d: "M 0 100 Q 250 150 500 100 T 1000 100" },
+          duration: 2,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut"
+        })
+        
+    
+        gsap.to(bottomRopeRef.current, {
+          attr: { d: "M 0 120 Q 200 80 500 120 T 1000 120" },
+          duration: 2.5,
+          repeat: -1,
+          yoyo: true,
+          ease: "sine.inOut",
+          delay: 0.3
+        })
         
         if (laznologyRef.current) {
             const splitLaznology = new SplitText(laznologyRef.current, { 
@@ -108,7 +137,6 @@ export default function Home() {
             });
             
             gsap.to(firstWordChars, {
-                textShadow: "0 0 8px rgba(0,0,0,0.3)",
                 scale: 1.1,
                 duration: 0.3,
                 stagger: 0.02,
@@ -117,7 +145,6 @@ export default function Home() {
             });
             
             gsap.to(firstWordChars, {
-                textShadow: "0 0 0px rgba(0,0,0,0)",
                 scale: 1,
                 duration: 0.5,
                 stagger: 0.01,
@@ -142,57 +169,51 @@ export default function Home() {
                 delay: 2.8
             });
         }       
-        if (japaneseTextRef.current) {
-            const splitJapanese = new SplitText(japaneseTextRef.current, { 
-                type: "chars",
-                charsClass: "japaneseChar"
-            });
-            
-            gsap.set(splitJapanese.chars, { 
-                opacity: 0,
-                scale: 0.9,
-                filter: "blur(4px)"
-            });
-            
-            gsap.to(splitJapanese.chars, {
-                opacity: 0.25, 
-                scale: 1,
-                filter: "blur(2px)",
-                duration: 0.7,
-                stagger: 0.08,
-                ease: "power2.out",
-                delay: 1.2
-            });
-            
-            splitJapanese.chars.forEach((char, i) => {
-                gsap.to(char, {
-                    y: -5 + (i % 3) * 2,
-                    opacity: 0.2 + (i % 3) * 0.05,
-                    duration: 2 + (i % 2), 
-                    repeat: -1,
-                    yoyo: true,
-                    ease: "sine.inOut",
-                    delay: i * 0.1
-                });
-            });
-        }
-}, [])
+    })
 
 return (        
         <div 
             ref={mainContainer}
             className="h-full w-full bg-gray-50 overflow-hidden relative flex flex-col items-center justify-center"
         >
-            <div   className={"absolute inset-0 flex items-center justify-center z-10"}>
+            <div className={"absolute inset-0 flex items-center justify-center z-10"}>
                 <span className="block p-4 text-9xl text-gray-200 filter blur-[2px] font-jetbrains-mono">イラジー</span>
+            </div>
+
+            <div className="absolute w-full flex items-center justify-center z-10 bottom-0">
+                <svg width={"100%"} viewBox="0 0 1000 200" preserveAspectRatio="none">
+                    <defs>
+                        <filter id="glow">
+                            <feGaussianBlur stdDeviation="3" result="blur" />
+                            <feComposite in="SourceGraphic" in2="blur" operator="over" />
+                        </filter>
+                    </defs>
+        
+                    <path ref={topRopeRef}
+                        d="M 0 100 Q 250 50 500 100 T 1000 100"
+                        stroke="#cccccc"
+                        strokeWidth="2"
+                        fill="none"
+                        filter="url(#glow)"
+                    />
+                    <path ref={bottomRopeRef}
+                        d="M 0 120 Q 200 160 500 120 T 1000 120"
+                        stroke="#cccccc"
+                        strokeWidth="1.5"
+                        fill="none"
+                        filter="url(#glow)"
+                    />
+                </svg>
             </div>
 
             <div className="absolute inset-0 opacity-5">
                 <div className="w-full h-full bg-gradient-to-br from-gray-200 via-white to-gray-100"></div>
-            </div>            <div 
+            </div>   
+
+            <div 
                 ref={teaTitle}
-                className="text-center mb-16 z-20"
-            >
+                    className="text-center mb-16 z-20"
+                >
                 <h1 
                     ref={laznologyRef}
                     className="text-6xl md:text-9xl font-antonio text-gray-800 mb-4 tracking-widest"
@@ -205,7 +226,7 @@ return (
                 >
                     !Dev, just people
                 </h2>
-                <div className="w-32 h-1 bg-gray-800 mx-auto mt-4"></div>            
+                <div className="underline w-auto h-1 bg-gray-800 mx-auto mt-4"></div>            
             </div>
 
             <div 
@@ -223,10 +244,7 @@ return (
                         }}
                     ></div>
                 ))}
-            </div>                       
-            
-
-            
+            </div>                            
         </div>
     )
 }

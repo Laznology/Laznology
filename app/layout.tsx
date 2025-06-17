@@ -82,9 +82,9 @@ export default function RootLayout({
         >
           <div className="h-screen py-4 px-2 md:py-6 md:px-4 lg:py-8 lg:px-8 flex flex-col">
             <div className="flex-1 border rounded-xl border-border flex flex-col overflow-hidden relative">
-              <div className="p-4 bg-background border-b border-border flex-shrink-0">
+              <header className="px-4 py-2 bg-background border-b border-border flex-shrink-0">
                 <Navbar />
-              </div>              
+              </header>              
               <main className="flex-1 overflow-hidden relative">
                 <div className="absolute inset-0 z-20 pointer-events-none">
                   <PageIndicatorsWrapper />

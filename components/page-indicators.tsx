@@ -93,16 +93,16 @@ export default function PageIndicators() {
     <>
       <div 
         ref={locationContainer}
-        className="absolute right-5 top-30 z-20"
+        className="absolute right-5 top-5 z-20"
       >
         <div 
           ref={locationText}
           className="transform writing-vertical-rl"
-        >          <p className="font-jetbrains-mono text-2xl text-center font-bold text-gray-700 opacity-70 tracking-[0.3em] page-indicator-text">
+        >          <p className="font-jetbrains-mono text-2xl text-center py-1 font-bold text-gray-700 opacity-70 tracking-[0.3em] page-indicator-text">
             {Array.from(pageName).map((char, index) => (
                 <span
                  key={index}
-                 className="block my-1">
+                 className="block">
                     {char}
                 </span>
                 ))}
@@ -112,15 +112,16 @@ export default function PageIndicators() {
 
       <div 
         ref={pathContainer}
-        className="absolute left-8 bottom-25 md:bottom-20 z-10"
+        className="absolute left-7 bottom-5 z-10"
       >        
       <div 
           ref={pathText}
-        >            <p className="font-antonio text-center text-2xl md:text-2xl lg:text-4xl text-gray-800 tracking-[0.2em] font-bold page-indicator-text">
+        >            
+        <p className="font-antonio text-center py-2 text-2xl md:text-2xl lg:text-4xl text-gray-800 tracking-[0.2em] font-bold page-indicator-text">
             {Array.from(pageNumber).map((number, index) => (
                 <span 
                   key={index} 
-                  className="block my-1" 
+                  className="block" 
                 >
                   {number}
                 </span>
