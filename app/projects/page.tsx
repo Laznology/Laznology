@@ -1,60 +1,94 @@
 "use client"
-import gsap from "gsap"
-import {useGSAP} from "@gsap/react"
-import {ScrollTrigger} from "gsap/all"
-import {useRef} from "react"
-gsap.registerPlugin(ScrollTrigger)
+import gsap from "gsap";
+import { useGSAP } from "@gsap/react";
+import { useRef } from "react";
+import { ScrollTrigger } from "gsap/ScrollTrigger";
 
-export default function Projects(){
-    const worksContainer = useRef<HTMLDivElement>(null)
-      useGSAP(() => {
-        gsap.set(worksContainer.current, { x: "100%" })
+gsap.registerPlugin(ScrollTrigger);
 
-        gsap.to(worksContainer.current, {
-            x: "0%",
-            ease: "none",
-            scrollTrigger: {
-                trigger: ".landing-section",
-                start: "top top",
-                end: "+=1000vh",
-                scrub: true,
-                markers: true,
-                scroller: ".scrollable-content",
-                pin: true,
-            }})
-    }, [])
+export default function Guestbook() {
+  const containerRef = useRef<HTMLDivElement>(null);
+  const firstSectionRef = useRef<HTMLDivElement>(null);
+  const secondSectionRef = useRef<HTMLDivElement>(null);
+  const thirdSectionRef = useRef<HTMLDivElement>(null);
 
-    return (
-        <div className="h-screen w-full overflow-hidden relative">
-            {/* Landing Section */}
-            <section className="landing-section h-full bg-gradient-to-br from-blue-50 to-indigo-100 flex items-center justify-center">
-                <div className="text-center">
-                    <div className="fixed top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2">
-                        <h1 className="text-6xl font-bold text-gray-800 mb-6">My Projects</h1>
-                        <p className="text-xl text-gray-600 mb-8">Scroll down to explore my work</p>
-                        <div className="animate-bounce">
-                            <svg className="w-6 h-6 mx-auto text-gray-600" fill="none" stroke="currentColor" viewBox="0 0 24 24">
-                                <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 14l-7 7m0 0l-7-7m7 7V3" />
-                            </svg>
-                        </div>
-                    </div>
-                </div>
-            </section>
+  useGSAP(() => {
+    // Set initial positions
+    gsap.set(secondSectionRef.current, {
+      y: "100%"
+    });
+    gsap.set(thirdSectionRef.current, {
+      x: "-100%"
+    });
 
-            {/* Works Container - Sliding Panel */}
-            <div className="min-h-[1000vh]"></div>
-            <div 
-                ref={worksContainer} 
-                className="absolute top-0 left-0 w-full h-full bg-gray-900 z-10 overflow-y-auto"
-            >
-                <div className="min-h-full flex items-center justify-center p-8">
-                    <div className="max-w-6xl mx-auto">
-                        <h2 className="text-4xl font-bold text-white text-center mb-16">Featured Projects</h2>
-                        
+    // Create ScrollTrigger timeline for coordinated animations
+    let tl = gsap.timeline({
+      scrollTrigger: {
+        scroller: ".scrollable-content",
+        trigger: containerRef.current,
+        pin: true,
+        scrub: 1,
+        start: "top top",
+        end: "+=200%",
+        anticipatePin: 1,
+        markers: false
+      }
+    });
 
-                    </div>
-                </div>
-            </div>
+    // First transition: Section 2 slides up
+    tl.to(secondSectionRef.current, {
+      y: "0%",
+      duration: 1,
+      ease: "none"
+    })
+    // Second transition: Section 3 slides in from left
+    .to(thirdSectionRef.current, {
+      x: "0%",
+      duration: 1,
+      ease: "none"
+    }, "+=0.5");
+
+  }, []);
+
+  return (
+    <div className="h-[300vh]"> {/* Scroll space */}
+      <div 
+        ref={containerRef}
+        className="relative w-full h-screen overflow-hidden"
+      >
+        {/* First Section - Base layer */}
+        <div 
+          ref={firstSectionRef} 
+          className="absolute inset-0 w-full h-[85vh] flex items-center justify-center bg-black text-white"
+        >
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-4">First Section</h2>
+            <p className="text-xl">This is the first section of the guestbook.</p>
+          </div>
         </div>
-    )
+
+        {/* Second Section - Slides up from bottom */}
+        <div 
+          ref={secondSectionRef} 
+          className="absolute inset-0 w-full h-full flex items-center justify-center bg-cyan-500 text-white"
+        >
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-4">Second Section</h2>
+            <p className="text-xl">This is the second section of the guestbook.</p>
+          </div>
+        </div>
+
+        {/* Third Section - Slides in from left */}
+        <div 
+          ref={thirdSectionRef} 
+          className="absolute inset-0 w-full h-full flex items-center justify-center bg-emerald-500 text-white"
+        >
+          <div className="text-center">
+            <h2 className="text-4xl font-bold mb-4">Third Section</h2>
+            <p className="text-xl">This is the third section of the guestbook.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  );
 }
