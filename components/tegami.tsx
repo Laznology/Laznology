@@ -5,7 +5,6 @@ import { useGSAP } from "@gsap/react"
 import { Textarea } from "@/components/ui/textarea"
 import { MapPinIcon} from "lucide-react"
 
-import { createGuestbook } from "@/lib/api/guestbook"
 import { createClient } from "@/lib/supabase/client"
 import { toast } from "sonner"
 
@@ -34,7 +33,24 @@ export default function Tegami({ onMessageSent, defaultOpen = false, onEnvelopeC
         
         try {
             setLoading(true)
-            await createGuestbook(message, userName, avatar)
+            const response = await fetch('/api/guestbooks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message,
+                    name: userName,
+                    avatarUrl: avatar,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Failed to send message');
+            }
+
+            await response.json();
             toast.success("Message sent successfully!")
             setMessage("")
             setIsOpen(false)
@@ -53,7 +69,7 @@ export default function Tegami({ onMessageSent, defaultOpen = false, onEnvelopeC
             const { data: { user } } = await supabase.auth.getUser()
             if (user) {
                 setUserName(user.user_metadata.name || "Guest")
-                setAvatar(user.user_metadata.avatar_url || null)
+                setAvatar(user.user_metadata.avatar_url || "")
             }
         }
         getUser()

@@ -1,6 +1,5 @@
 "use client";
 import {Dialog, DialogContent, DialogHeader, DialogTitle, DialogDescription, DialogTrigger} from "@/components/ui/dialog";
-import { createGuestbook } from "@/lib/api/guestbook";
 import { Button } from "@/components/ui/button";
 import React, { useEffect, useState } from "react";
 import { toast } from "sonner";
@@ -107,7 +106,24 @@ export default function GuestbookForm({ onSuccess }: GuestbookFormProps) {
 
         try {
             setLoading(true);
-            await createGuestbook(message.trim(), name, avatarUrl);
+            const response = await fetch('/api/guestbooks', {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                },
+                body: JSON.stringify({
+                    message: message.trim(),
+                    name,
+                    avatarUrl,
+                }),
+            });
+
+            if (!response.ok) {
+                const errorData = await response.json().catch(() => ({}));
+                throw new Error(errorData.error || 'Failed to sign guestbook');
+            }
+
+            await response.json();
             toast.success("Guestbook signed successfully");
             setMessage('');
             onSuccess?.();
