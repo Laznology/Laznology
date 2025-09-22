@@ -65,12 +65,12 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
 
     const firstItem = divItems[0];
     const itemStyle = getComputedStyle(firstItem);
-    
+
     // Determine dimensions based on direction
     const isHorizontal = direction === "horizontal";
     let itemDimension: number;
     let itemMargin: number;
-    
+
     if (isHorizontal) {
       itemDimension = firstItem.offsetWidth;
       itemMargin = parseFloat(itemStyle.marginLeft) || 0;
@@ -78,9 +78,10 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       itemDimension = firstItem.offsetHeight;
       itemMargin = parseFloat(itemStyle.marginTop) || 0;
     }
-    
+
     const totalItemDimension = itemDimension + itemMargin;
-    const totalDimension = itemDimension * items.length + itemMargin * (items.length - 1);
+    const totalDimension =
+      itemDimension * items.length + itemMargin * (items.length - 1);
 
     const wrapFn = gsap.utils.wrap(-totalDimension, totalDimension);
 
@@ -108,14 +109,15 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
         // Determine delta based on direction
         let delta;
         if (isHorizontal) {
-          delta = event.type === "wheel" ? -(deltaX || deltaY) : (deltaX || deltaY);
+          delta =
+            event.type === "wheel" ? -(deltaX || deltaY) : deltaX || deltaY;
         } else {
           delta = event.type === "wheel" ? -deltaY : deltaY;
         }
-        
+
         const distance = isDragging ? delta * 5 : delta * 10;
         const property = isHorizontal ? "x" : "y";
-        
+
         divItems.forEach((child) => {
           gsap.to(child, {
             duration: 0.5,
@@ -138,7 +140,7 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
       } else {
         directionFactor = autoplayDirection === "down" ? 1 : -1;
       }
-      
+
       const speedPerFrame = autoplaySpeed * directionFactor;
       const property = isHorizontal ? "x" : "y";
 
@@ -198,7 +200,9 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
   ]);
   return (
     <>
-      <style>        {`
+      <style>
+        {" "}
+        {`
           .infinite-scroll-wrapper {
             max-height: ${maxHeight};
             width: ${direction === "horizontal" ? "100%" : width};
@@ -207,17 +211,19 @@ const InfiniteScroll: React.FC<InfiniteScrollProps> = ({
           }
 
           .infinite-scroll-container {
-            ${direction === "horizontal" 
-              ? `display: flex; flex-direction: row; height: 100%; width: max-content; align-items: center;` 
-              : `width: ${width};`
+            ${
+              direction === "horizontal"
+                ? `display: flex; flex-direction: row; height: 100%; width: max-content; align-items: center;`
+                : `width: ${width};`
             }
             cursor: grab;
           }
 
           .infinite-scroll-item {
-            ${direction === "horizontal" 
-              ? `width: ${itemMinWidth}px; margin-right: ${negativeMargin}; flex-shrink: 0; height: auto; max-height: 100%;`
-              : `height: ${itemMinHeight}px; margin-top: ${negativeMargin}; width: 100%;`
+            ${
+              direction === "horizontal"
+                ? `width: ${itemMinWidth}px; margin-right: ${negativeMargin}; flex-shrink: 0; height: auto; max-height: 100%;`
+                : `height: ${itemMinHeight}px; margin-top: ${negativeMargin}; width: 100%;`
             }
             display: flex;
             align-items: center;
