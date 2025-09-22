@@ -42,7 +42,7 @@ export default function GuestbookList({
   return (
     <div
       ref={listRef}
-      className="flex-1 w-full overflow-y-auto px-1 sm:px-2 scrollable-content"
+      className="flex-1 min-h-0 w-full overflow-y-auto px-1 sm:px-2 scrollable-content"
     >
       <div
         ref={containerRef}
