@@ -1,6 +1,5 @@
 @import "tailwindcss";
 @import 'tailwind-scrollbar-hide/v4';
-@import url('https://fonts.googleapis.com/css2?family=Antonio:wght@100..700&family=Fjalla+One&display=swap');
 
 @theme {
   --color-background: oklch(from white l c h);
@@ -27,27 +26,20 @@
 
 /* Navbar specific styles */
 .font-antonio {
-  font-family: var(--font-antonio), 'Antonio', 'Arial Narrow', sans-serif;
+  font-family: 'Arial Narrow', 'Segoe UI', 'Helvetica Neue', sans-serif;
 }
 
 .font-fjalla {
-  font-family: 'Fjalla One', 'Arial Black', sans-serif;
+  font-family: 'Impact', 'Arial Black', sans-serif;
 }
 
-.font-jetbrains {
-  font-family: 'JetBrains Mono', monospace;
-}
-
-.font-yuji-hentaigana {
-  font-family: var(--font-yuji-hentaigana);
-}
-
-.font-rampart-one {
-  font-family: var(--font-rampart-one);
+.font-jetbrains,
+.font-jetbrains-mono {
+  font-family: 'Courier New', 'Liberation Mono', monospace;
 }
 
 .font-noto-serif-jp {
-  font-family: var(--font-noto-serif-jp);
+  font-family: 'Yu Mincho', 'MS Mincho', serif;
 }
 
 @layer base {
