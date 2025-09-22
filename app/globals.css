@@ -1,5 +1,5 @@
 @import "tailwindcss";
-@import 'tailwind-scrollbar-hide/v4';
+@import "tailwind-scrollbar-hide/v4";
 
 @theme {
   --color-background: oklch(from white l c h);
@@ -26,20 +26,20 @@
 
 /* Navbar specific styles */
 .font-antonio {
-  font-family: 'Arial Narrow', 'Segoe UI', 'Helvetica Neue', sans-serif;
+  font-family: "Arial Narrow", "Segoe UI", "Helvetica Neue", sans-serif;
 }
 
 .font-fjalla {
-  font-family: 'Impact', 'Arial Black', sans-serif;
+  font-family: "Impact", "Arial Black", sans-serif;
 }
 
 .font-jetbrains,
 .font-jetbrains-mono {
-  font-family: 'Courier New', 'Liberation Mono', monospace;
+  font-family: "Courier New", "Liberation Mono", monospace;
 }
 
 .font-noto-serif-jp {
-  font-family: 'Yu Mincho', 'MS Mincho', serif;
+  font-family: "Yu Mincho", "MS Mincho", serif;
 }
 
 @layer base {

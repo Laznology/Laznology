@@ -4,8 +4,8 @@ import "./globals.css";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
 import Footer from "@/components/footer";
-import PageIndicatorsWrapper from "@/components/page-indicators-wrapper"
-import CornerDecorationsWrapper from "@/components/corner-decorations-wrapper"
+import PageIndicatorsWrapper from "@/components/page-indicators-wrapper";
+import CornerDecorationsWrapper from "@/components/corner-decorations-wrapper";
 
 const defaultUrl = process.env.NEXT_PUBLIC_APP_URL
   ? `https://${process.env.NEXT_PUBLIC_APP_URL}`

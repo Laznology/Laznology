@@ -1,16 +1,16 @@
-'use client';
+"use client";
 
-import { useEffect, useState, useRef } from 'react';
-import { MessageSquareIcon } from 'lucide-react';
+import { useEffect, useState, useRef } from "react";
+import { MessageSquareIcon } from "lucide-react";
 
-import { Button } from '@/components/ui/button';
-import GuestbookHeader from '@/components/guestbook-header';
-import GuestbookList from '@/components/guestbook-list';
-import { AuthModal } from '@/components/auth-modal';
-import TegamiModal from '@/components/tegami-modal';
-import { createClient } from '@/lib/supabase/client';
-import type { User } from '@supabase/supabase-js';
-import { Guestbook } from '@/types/guestbook';
+import { Button } from "@/components/ui/button";
+import GuestbookHeader from "@/components/guestbook-header";
+import GuestbookList from "@/components/guestbook-list";
+import { AuthModal } from "@/components/auth-modal";
+import TegamiModal from "@/components/tegami-modal";
+import { createClient } from "@/lib/supabase/client";
+import type { User } from "@supabase/supabase-js";
+import { Guestbook } from "@/types/guestbook";
 
 export default function GuestbookPage() {
   const [guestbooks, setGuestbooks] = useState<Guestbook[]>([]);
@@ -22,15 +22,15 @@ export default function GuestbookPage() {
   const loadGuestbooks = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/guestbooks');
+      const response = await fetch("/api/guestbooks");
       if (!response.ok) {
-        throw new Error('Failed to fetch guestbooks');
+        throw new Error("Failed to fetch guestbooks");
       }
 
       const data: Guestbook[] = await response.json();
       setGuestbooks(data);
     } catch (error) {
-      console.error('Error loading guestbooks:', error);
+      console.error("Error loading guestbooks:", error);
     } finally {
       setLoading(false);
     }
@@ -45,7 +45,7 @@ export default function GuestbookPage() {
       } = await supabase.auth.getUser();
       setUser(user);
     } catch (error) {
-      console.error('Error checking user:', error);
+      console.error("Error checking user:", error);
     } finally {
       setUserLoading(false);
     }
@@ -61,9 +61,7 @@ export default function GuestbookPage() {
       ref={containerRef}
       className="relative h-full overflow-hidden bg-background"
     >
-      {!userLoading && user && (
-        <TegamiModal onMessageSent={loadGuestbooks} />
-      )}
+      {!userLoading && user && <TegamiModal onMessageSent={loadGuestbooks} />}
 
       <div className="relative z-20 flex h-full flex-col items-center px-4 py-6 sm:px-6 sm:py-10">
         <div className="flex w-full max-w-2xl flex-1 flex-col gap-6 sm:gap-8">

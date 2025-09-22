@@ -19,7 +19,7 @@ export async function GET() {
     console.error("Failed to fetch guestbooks", error);
     return NextResponse.json(
       { error: "Failed to fetch guestbooks" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
@@ -37,7 +37,7 @@ export async function POST(request: NextRequest) {
     if (!message || !name) {
       return NextResponse.json(
         { error: "Missing required fields" },
-        { status: 400 }
+        { status: 400 },
       );
     }
 
@@ -61,7 +61,7 @@ export async function POST(request: NextRequest) {
     console.error("Failed to create guestbook entry", error);
     return NextResponse.json(
       { error: "Failed to create guestbook entry" },
-      { status: 500 }
+      { status: 500 },
     );
   }
 }
