@@ -16,10 +16,10 @@ const navItems = [
     title: "About",
     href: "/about"
   },
-  // {
-  //   title: "Project",
-  //   href: "/projects"
-  // },
+  {
+    title: "Project",
+    href: "/projects"
+  },
   {
     title: "Guestbook",
     href: "/guestbook",

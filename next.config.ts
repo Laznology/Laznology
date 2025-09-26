@@ -17,7 +17,11 @@ const nextConfig: NextConfig = {
         protocol: "https",
         hostname: "cdn.discordapp.com",
         pathname: "/**",
-      },
+      }, {
+      protocol: "https",
+        hostname: "spcvbpnwlqcdpozamryb.supabase.co",
+        pathname: "/**",
+      }
     ],
   },
 };
