@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -11,7 +11,7 @@ const menuList = [
   { menu: "Home", href: "/", pageNumber: "(=^･ω･^=)" },
   { menu: "About", href: "/about", pageNumber: "(=^-ω-^=)" },
   { menu: "Guestbook", href: "/guestbook", pageNumber: "(ฅ^•ﻌ•^ฅ)" },
-  { menu: "Blog", href: "/blog", pageNumber: "(=①ω①=)" },
+  { menu: "Projects", href: "/projects", pageNumber: "(=^‥^=)ﾉ" }
 ];
 
 export default function Sidebar() {
@@ -83,6 +83,7 @@ export default function Sidebar() {
   return (
     <div className="flex items-center h-full">
       <button
+        aria-label="Sidebar Button"
         onClick={handleOpen}
         className={
           "cursor-pointer z-[999] text-black flex items-center justify-center"
@@ -99,12 +100,14 @@ export default function Sidebar() {
       <div
         ref={backdrop}
         className="absolute inset-0 w-full h-full bg-white/10 backdrop-blur-sm z-30"
+        style={{ opacity: 0, visibility: "hidden" }}
         onClick={handleClose}
       ></div>
 
       <div
         ref={sidebarPanel}
         className="absolute left-0 top-0 h-full w-[70vw] lg:w-[40vw] bg-black rounded-lg z-30 overflow-hidden"
+        style={{ transform: "translateX(-2000px)" }}
       >
         <div className={"absolute -bottom-6 left-0 text-white/20"}>
           <span className={"text-9xl lg:text-9xl"}>LZ</span>
@@ -126,6 +129,7 @@ export default function Sidebar() {
               </span>
             </div>
             <button
+              aria-label="Close Sidebar"
               onClick={handleClose}
               onMouseEnter={() => setHovered(true)}
               onMouseLeave={() => setHovered(false)}
@@ -133,9 +137,8 @@ export default function Sidebar() {
             >
               <Icon
                 icon={
-                  hovered
-                    ? "line-md:close-to-menu-transition"
-                    : "line-md:arrow-close-right"
+                  "line-md:arrow-close-right"
+
                 }
                 height="32"
               />
@@ -148,9 +151,10 @@ export default function Sidebar() {
                 onMouseEnter={() => onHover(index)}
                 key={index}
                 href={item.href}
+                onClick={handleClose}
                 className="relative flex text-white py-2 px-3 gap-2 group hover:text-black rounded w-fit"
               >
-                <span className={"text-xl lg:text-7xl font-jetbrains z-10"}>
+                <span className={"text-3xl lg:text-7xl font-jetbrains z-10"}>
                   {item.menu}
                 </span>
                 <div

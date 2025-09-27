@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
-import { AuthModal } from "./auth-modal";
-import ProfileNavbar from "./auth/profile-navbar";
+import { Link } from "next-view-transitions";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
@@ -12,14 +10,14 @@ const navItems = [
     title: "Home",
     href: "/",
   },
-  // {
-  //   title: "About",
-  //   href: "/about"
-  // },
-  // {
-  //   title: "Project",
-  //   href: "/projects"
-  // },
+  {
+    title: "About",
+    href: "/about"
+  },
+  {
+    title: "Project",
+    href: "/projects"
+  },
   {
     title: "Guestbook",
     href: "/guestbook",
