@@ -1,6 +1,7 @@
 import type {Metadata} from "next";
 import {ThemeProvider} from "next-themes";
 import "./globals.css";
+
 import Navbar from "@/components/navbar";
 import {Toaster} from "@/components/ui/sonner";
 import Footer from "@/components/footer";

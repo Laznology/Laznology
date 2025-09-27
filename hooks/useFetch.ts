@@ -1,16 +1,7 @@
 "use client";
-import { useEffect, useState, useCallback } from "react";
-interface UseFetchOption {
-  revalidate: number;
-}
+import { useCallback, useEffect, useState } from "react";
 
-export function useFetch<T = unknown>(
-  url: string,
-  options: UseFetchOption = {
-    revalidate: 0,
-  },
-) {
-  const { revalidate } = options;
+export function useFetch<T = unknown>(url: string) {
   const [data, setData] = useState<T | null>(null);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState<Error | null>(null);
@@ -28,12 +19,10 @@ export function useFetch<T = unknown>(
       setLoading(false);
     }
   }, [url]);
+
   useEffect(() => {
     fetchData();
-    if (revalidate) {
-      const id = setInterval(fetchData, revalidate * 1000);
-      return () => clearInterval(id);
-    }
-  }, [fetchData, revalidate]);
+  }, [fetchData]);
+
   return { data, loading, error, refetch: fetchData };
 }

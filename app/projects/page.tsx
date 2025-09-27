@@ -8,9 +8,7 @@ import { Badge } from "@/components/ui/badge";
 import { Icon } from "@iconify/react";
 
 export default function ProjectPage() {
-  const { data, error, loading } = useFetch<Project[]>("/api/projects", {
-    revalidate: 30,
-  });
+  const { data, error, loading } = useFetch<Project[]>("/api/projects");
 
   if (loading) {
     return (
@@ -43,14 +41,14 @@ export default function ProjectPage() {
           key={project.title}
           className="gap-4 border-b border-dashed last:border-b-0 p-6 max-w-2xl"
         >
-          <div className="relative inline-block">
+          <div className="relative w-full aspect-[16/9]">
             <Image
               src={project.image}
               alt={project.title}
-              height={600}
-              width={500}
-              loading="lazy"
-              className="relative z-10 rounded-md"
+              fill
+              priority
+              sizes="(max-width: 768px) 100vw, 33vw"
+              className="rounded-md object-cover z-10"
             />
             <div className="absolute inset-0 translate-x-1 translate-y-1 bg-neutral-500 rounded-sm shadow-sm z-0" />
           </div>
