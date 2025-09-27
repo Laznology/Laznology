@@ -1,5 +1,5 @@
 "use client";
-import Link from "next/link";
+import { Link } from "next-view-transitions";
 import { useEffect, useRef, useState } from "react";
 import { useGSAP } from "@gsap/react";
 import gsap from "gsap";
@@ -151,6 +151,7 @@ export default function Sidebar() {
                 onMouseEnter={() => onHover(index)}
                 key={index}
                 href={item.href}
+                onClick={handleClose}
                 className="relative flex text-white py-2 px-3 gap-2 group hover:text-black rounded w-fit"
               >
                 <span className={"text-3xl lg:text-7xl font-jetbrains z-10"}>

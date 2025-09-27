@@ -1,7 +1,5 @@
 "use client";
-import Link from "next/link";
-import { AuthModal } from "./auth-modal";
-import ProfileNavbar from "./auth/profile-navbar";
+import { Link } from "next-view-transitions";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";

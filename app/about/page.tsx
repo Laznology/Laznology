@@ -6,7 +6,7 @@ export default function AboutPage() {
     return (
         <div className="grid grid-cols-1 md:grid-cols-2 items-center container mx-auto justify-center px-12 py-6">
             <div className="aspect-square items-center flex justify-center">
-                <Image src={"/meh.webp"} alt={"Laznology"} height={400} width={400} className={"object-cover"}/>
+                <Image priority src={"/meh.webp"} alt={"Laznology"} height={400} width={400} className={"object-cover"}/>
             </div>
             <div className="space-y-12">
                 <div className="items-center font-jetbrains">
