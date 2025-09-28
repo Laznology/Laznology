@@ -8,31 +8,18 @@ import { Badge } from "@/components/ui/badge";
 import { Icon } from "@iconify/react";
 
 export default function ProjectPage() {
-  const { data, error, loading } = useFetch<Project[]>("/api/projects");
-
-  if (loading) {
-    return (
-      <div className="container flex flex-col items-center justify-center h-full p-6">
-        <div className="gap-4 border-b border-dashed p-6 max-w-2xl">
-          <Skeleton className="w-full h-64 rounded-md animate-pulse" />
-          <div className="mt-4 space-y-2">
-            <Skeleton className="h-8 w-1/2 animate-pulse" />
-            <Skeleton className="h-4 w-3/4 animate-pulse" />
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="container flex flex-col items-center justify-center h-full p-6">
-        <Card className="p-6 w-full max-w-md text-center text-red-600">
-          Failed to load projects: {error.message}
-        </Card>
-      </div>
-    );
-  }
+  const data: Project[] = [
+    {
+      title: "Kebon",
+      description:
+        "Blogging web app with a Notion-style editor. Basically you write in blocks instead of one big text area, so you can drag things around, split into sections, drop in quotes, lists, or code blocks just by typing /. The whole thing feels closer to building with Lego than filling a form.",
+      image:
+        "https://spcvbpnwlqcdpozamryb.supabase.co/storage/v1/object/public/Images/Screenshot%20From%202025-09-26%2021-28-52.png",
+      tech_stack: ["Next.js", "TailwindCSS", "Tiptap", "Postgre"],
+      repo_url: "https://github.com/Laznology/kebon",
+      demo_url: "https://notes.lazlab.tech",
+    },
+  ];
 
   return (
     <div className="container flex flex-col items-center justify-center h-full p-6">

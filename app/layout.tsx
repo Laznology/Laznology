@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { ThemeProvider } from "next-themes";
 import "./globals.css";
+import Script from "next/script";
 import { ViewTransitions } from "next-view-transitions";
 import Navbar from "@/components/navbar";
 import { Toaster } from "@/components/ui/sonner";
@@ -33,6 +34,20 @@ export default function RootLayout({
   return (
     <ViewTransitions>
       <html lang="en" suppressHydrationWarning>
+        <head>
+          <Script
+            async
+            src="https://www.googletagmanager.com/gtag/js?id=G-SZ8NVJ306L"
+          />
+          <Script id="google-analytics">
+            {`
+            window.dataLayer = window.dataLayer || [];
+            function gtag(){dataLayer.push(arguments);}
+            gtag('js', new Date());
+            gtag('config', 'G-SZ8NVJ306L');
+          `}
+          </Script>
+        </head>
         <body className="font-sans antialiased bg-background min-h-screen">
           <ThemeProvider
             attribute="class"
