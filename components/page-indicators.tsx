@@ -74,29 +74,13 @@ export default function PageIndicators() {
         });
       }
 
-      ScrollTrigger.create({
-        scroller: ".scrollable-content",
-        onUpdate: (self) => {
-          if (self.progress > 0.7) {
-            gsap.to(".page-indicator-text", {
-              color: "white",
-              duration: 0.3,
-            });
-          } else {
-            gsap.to(".page-indicator-text", {
-              color: "#1f2937",
-              duration: 0.3,
-            });
-          }
-        },
-      });
     },
     { dependencies: [pathname] },
   );
 
   return (
     <>
-      <div ref={locationContainer} className="absolute right-5 top-5 z-20">
+      <div ref={locationContainer} className="absolute right-5 top-5 z-20 hidden md:block">
         <div ref={locationText} className="transform writing-vertical-rl">
           {" "}
           <p className="font-jetbrains-mono text-2xl text-center py-1 font-bold text-gray-700 opacity-70 tracking-[0.3em] page-indicator-text">
