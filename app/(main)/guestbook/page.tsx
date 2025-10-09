@@ -63,7 +63,7 @@ export default function GuestbookPage() {
     >
       {!userLoading && user && <TegamiModal onMessageSent={loadGuestbooks} />}
 
-      <div className="relative z-20 flex h-full min-h-0 flex-col items-center px-4 py-6 sm:px-6 sm:py-10">
+      <div className="relative z-10 flex h-full min-h-0 flex-col items-center px-4 py-6 sm:px-6 sm:py-10">
         <div className="flex w-full max-w-2xl flex-1 min-h-0 flex-col gap-6 sm:gap-8">
           <GuestbookHeader loading={loading} />
 
