@@ -35,7 +35,7 @@ export default function ProjectPage() {
   }
 
   return (
-    <div className="container flex flex-col items-center justify-center h-full p-6">
+    <div className="container flex flex-col items-center justify-center h-full px-6 py-12">
       {data?.map((project) => (
         <div
           key={project.title}
@@ -47,7 +47,7 @@ export default function ProjectPage() {
               alt={project.title}
               fill
               priority
-              sizes="(max-width: 768px) 100vw, 33vw"
+              sizes="(max-width: 768px) calc(100vw - 8rem), (max-width: 1024px) calc(100vw - 12rem), calc(100vw - 16rem)"
               className="rounded-md object-cover z-10"
             />
             <div className="absolute inset-0 translate-x-1 translate-y-1 bg-neutral-500 rounded-sm shadow-sm z-0" />

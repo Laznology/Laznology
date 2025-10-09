@@ -31,6 +31,10 @@ export default function AboutPage() {
                             <Icon icon={"mdi:linkedin"}/>
                             <Link href={"https://www.linkedin.com/in/ahmad-hanaffi"}>LinkedIn</Link>
                         </div>
+                      <div className="flex items-center justify-start gap-2">
+                         <Icon icon={"mdi:telegram"} />
+                        <Link target={"_blank"} href={"https://t.me/Laztech"}>Telegram</Link>
+                      </div>
                     </div>
                     <div>
                         Special Region Yogyakarta, Indonesia
