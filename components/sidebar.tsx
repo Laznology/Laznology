@@ -11,7 +11,8 @@ const menuList = [
   { menu: "Home", href: "/", pageNumber: "(=^･ω･^=)" },
   { menu: "About", href: "/about", pageNumber: "(=^-ω-^=)" },
   { menu: "Guestbook", href: "/guestbook", pageNumber: "(ฅ^•ﻌ•^ฅ)" },
-  { menu: "Projects", href: "/projects", pageNumber: "(=^‥^=)ﾉ" }
+  { menu: "Projects", href: "/projects", pageNumber: "(=^‥^=)ﾉ" },
+  { menu: "Resume", href: "/resume", pageNumber: "(=^･ｪ･^=)" }
 ];
 
 export default function Sidebar() {

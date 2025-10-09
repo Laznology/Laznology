@@ -4,6 +4,7 @@ import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import Sidebar from "@/components/sidebar";
+import { title } from "process";
 
 const navItems = [
   {
@@ -22,6 +23,10 @@ const navItems = [
     title: "Guestbook",
     href: "/guestbook",
   },
+  {
+    title: "Resume",
+    href: "/resume"
+  }
 ];
 
 export default function Navbar() {
