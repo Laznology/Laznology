@@ -37,7 +37,7 @@ export default function ResumePage() {
           Summary
         </h2>
         <p>
-          Hello! I'm Ahmad Hanaffi, a detail-oriented Web Developer passionate about building efficient and
+          Hello! I&apos;m Ahmad Hanaffi, a detail-oriented Web Developer passionate about building efficient and
           intuitive digital solutions. Skilled in both frontend and backend
           development, with a focus on performance optimization, scalability,
           and clean code practices. Values clear communication and active
