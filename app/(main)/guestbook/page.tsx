@@ -1,8 +1,8 @@
 "use client";
 
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useCallback } from "react";
 import { MessageSquareIcon } from "lucide-react";
-
+import { toast } from "sonner";
 import { Button } from "@/components/ui/button";
 import GuestbookHeader from "@/components/guestbook-header";
 import GuestbookList from "@/components/guestbook-list";
@@ -19,7 +19,7 @@ export default function GuestbookPage() {
   const [userLoading, setUserLoading] = useState(true);
   const containerRef = useRef<HTMLDivElement>(null);
 
-  const loadGuestbooks = async () => {
+  const loadGuestbooks = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch("/api/guestbooks");
@@ -30,13 +30,13 @@ export default function GuestbookPage() {
       const data: Guestbook[] = await response.json();
       setGuestbooks(data);
     } catch (error) {
-      console.error("Error loading guestbooks:", error);
+      toast.error("Failed to load guestbooks. Please try again.");
     } finally {
       setLoading(false);
     }
-  };
+  }, []);
 
-  const checkUser = async () => {
+  const checkUser = useCallback(async () => {
     try {
       setUserLoading(true);
       const supabase = createClient();
@@ -44,17 +44,17 @@ export default function GuestbookPage() {
         data: { user },
       } = await supabase.auth.getUser();
       setUser(user);
-    } catch (error) {
-      console.error("Error checking user:", error);
+    } catch {
+      toast.error("Failed to check user. Please try again.");
     } finally {
       setUserLoading(false);
     }
-  };
+  }, []);
 
   useEffect(() => {
     loadGuestbooks();
     checkUser();
-  }, []);
+  }, [loadGuestbooks, checkUser]);
 
   return (
     <div
