@@ -1,10 +1,9 @@
 "use client";
-import { Link } from "next-view-transitions";
+import { Link, useTransitionRouter } from "next-view-transitions";
 import { createClient } from "@/lib/supabase/client";
 import { useEffect, useState } from "react";
 import { User } from "@supabase/supabase-js";
 import Sidebar from "@/components/sidebar";
-import { title } from "process";
 
 const navItems = [
   {
@@ -13,11 +12,11 @@ const navItems = [
   },
   {
     title: "About",
-    href: "/about"
+    href: "/about",
   },
   {
     title: "Project",
-    href: "/projects"
+    href: "/projects",
   },
   {
     title: "Guestbook",
@@ -25,14 +24,15 @@ const navItems = [
   },
   {
     title: "Resume",
-    href: "/resume"
-  }
+    href: "/resume",
+  },
 ];
 
 export default function Navbar() {
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
   const supabase = createClient();
+  const router = useTransitionRouter();
 
   useEffect(() => {
     const getSession = async () => {
