@@ -1,6 +1,7 @@
 "use client";
 import { createClient } from "@/lib/supabase/client";
 import { Github } from "lucide-react";
+import { toast } from "sonner";
 import {
   Dialog,
   DialogContent,
@@ -34,7 +35,7 @@ export function AuthModal({
       },
     });
     if (error) {
-      console.error("GitHub sign in error:", error);
+      toast.error("Failed to sign in with GitHub. Please try again.");
     }
     setIsLoading(null);
   }
@@ -52,7 +53,7 @@ export function AuthModal({
       },
     });
     if (error) {
-      console.error("Google sign in error:", error);
+      toast.error("Failed to sign in with Google. Please try again.");
     }
     setIsLoading(null);
   }
@@ -66,7 +67,7 @@ export function AuthModal({
       },
     });
     if (error) {
-      console.error("Discord sign in error:", error);
+      toast.error("Failed to sign in with Discord. Please try again.");
     }
     setIsLoading(null);
   }
@@ -81,7 +82,7 @@ export function AuthModal({
           <DialogTitle className="text-2xl font-bold">
             (=^･ω･^=) Welcome!
           </DialogTitle>
-          <DialogDescription className="text-gray-600">
+          <DialogDescription className="text-muted-foreground">
             Sign in to leave your signature
           </DialogDescription>
         </DialogHeader>
@@ -123,7 +124,7 @@ export function AuthModal({
           <Button
             onClick={signInWithGitHub}
             disabled={isLoading !== null}
-            className="w-full h-12 text-base font-medium bg-gray-900 hover:bg-gray-800"
+            className="w-full h-12 text-base font-medium bg-foreground hover:bg-foreground/90 text-background"
           >
             {isLoading === "github" ? (
               <div className="w-5 h-5 border-2 border-white/30 border-t-white rounded-full animate-spin mr-3" />
