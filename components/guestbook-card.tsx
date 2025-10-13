@@ -21,7 +21,7 @@ export default function GuestbookCard({ entry }: GuestbookCardProps) {
   return (
     <Card
       tabIndex={0}
-      className="guestbook-item relative mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border-none bg-background/85 px-5 pt-5 pb-6 shadow-none transition-all duration-300 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/40"
+      className="guestbook-item relative mx-auto w-full max-w-2xl overflow-hidden rounded-2xl border-none bg-background px-5 pt-5 pb-6 shadow-none focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-foreground/40"
     >
       <div className="flex items-start gap-4">
         <Image
@@ -46,10 +46,10 @@ export default function GuestbookCard({ entry }: GuestbookCardProps) {
         </div>
       </div>
 
-      <div className="mx-1 mt-4 h-px bg-border/60" />
+      <div className="mx-1 mt-4 h-px bg-border" />
 
       <div className="px-1 pt-4">
-        <p className="font-jetbrains text-sm leading-relaxed text-foreground/90">
+        <p className="font-jetbrains text-sm leading-relaxed text-foreground">
           {entry.message}
         </p>
       </div>
