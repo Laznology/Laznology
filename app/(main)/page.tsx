@@ -185,10 +185,10 @@ export default function Home() {
   return (
     <div
       ref={mainContainer}
-      className="h-full w-full bg-gray-50 overflow-hidden relative flex flex-col items-center justify-center"
+      className="h-full w-full bg-background overflow-hidden relative flex flex-col items-center justify-center"
     >
       <div className={"absolute inset-0 flex items-center justify-center z-10"}>
-        <span className="block p-4 text-9xl text-gray-200 filter blur-[2px] font-jetbrains-mono">
+        <span className="block p-4 text-9xl text-muted-foreground filter blur-[2px] font-jetbrains-mono opacity-20">
           イラジー
         </span>
       </div>
@@ -205,7 +205,7 @@ export default function Home() {
           <path
             ref={topRopeRef}
             d="M 0 100 Q 250 50 500 100 T 1000 100"
-            stroke="#cccccc"
+            stroke="hsl(var(--muted-foreground))"
             strokeWidth="2"
             fill="none"
             filter="url(#glow)"
@@ -213,7 +213,7 @@ export default function Home() {
           <path
             ref={bottomRopeRef}
             d="M 0 120 Q 200 160 500 120 T 1000 120"
-            stroke="#cccccc"
+            stroke="hsl(var(--muted-foreground))"
             strokeWidth="1.5"
             fill="none"
             filter="url(#glow)"
@@ -222,34 +222,34 @@ export default function Home() {
       </div>
 
       <div className="absolute inset-0 opacity-5">
-        <div className="w-full h-full bg-gradient-to-br from-gray-200 via-white to-gray-100"></div>
+        <div className="w-full h-full bg-gradient-to-br from-muted via-background to-muted"></div>
       </div>
 
       <div ref={teaTitle} className="text-center mb-16 z-20">
         <h1
           ref={laznologyRef}
-          className="text-6xl md:text-9xl font-antonio text-gray-800 mb-4 tracking-widest"
+          className="text-6xl md:text-9xl font-antonio text-foreground mb-4 tracking-widest"
         >
           Laznology
         </h1>
         <h2
           ref={devRef}
-          className="text-lg md:text-3xl font-noto-serif-jp text-gray-600 tracking-[0.3em]"
+          className="text-lg md:text-3xl font-noto-serif-jp text-muted-foreground tracking-[0.3em]"
         >
           !Dev, just people
         </h2>
-        <div className="underline w-auto h-1 bg-gray-800 mx-auto mt-4"></div>
+        <div className="underline w-auto h-1 bg-foreground mx-auto mt-4"></div>
       </div>
 
       <div ref={teaLeaves} className="flex justify-center space-x-4 z-15 mt-6">
         {[0, 1, 2, 3, 4, 5].map((index) => (
           <div
             key={index}
-            className="w-3 h-7 bg-gray-800 transform"
+            className="w-3 h-7 bg-muted-foreground transform"
             style={{
               borderRadius: "50% 10px 50% 10px",
               transform: `rotate(${index * 15 - 40}deg)`,
-              opacity: 0.7 - index * 0.08,
+              opacity: 0.8 - index * 0.1,
             }}
           ></div>
         ))}

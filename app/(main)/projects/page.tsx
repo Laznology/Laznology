@@ -62,7 +62,7 @@ export default function ProjectPage() {
                     href={project.repo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-gray-900"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Icon icon="mdi:github" width="24" height="24" />
                   </a>
@@ -73,7 +73,7 @@ export default function ProjectPage() {
                     href={project.demo_url}
                     target="_blank"
                     rel="noopener noreferrer"
-                    className="text-gray-600 hover:text-gray-900"
+                    className="text-muted-foreground hover:text-foreground transition-colors"
                   >
                     <Icon icon="mdi:monitor" width="24" height="24" />
                   </a>

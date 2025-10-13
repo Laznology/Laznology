@@ -7,7 +7,7 @@ export default function NotFound() {
   const router = useRouter();
 
   return (
-    <div className="bg-background flex items-center justify-center h-full px-4">
+    <div className="bg-background flex items-center justify-center h-screen px-4">
       <div className="md:left-auto md:right-8 md:w-80">
         <div className="bg-gray-900/90 backdrop-blur-sm p-4 rounded-lg border border-gray-700 font-mono text-sm">
           <div className="text-green-400 mb-2">~/$ not-found.tsx</div>
