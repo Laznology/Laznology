@@ -1,13 +1,14 @@
 "use client";
-import { useFetch } from "@/hooks/useFetch";
-import { Card } from "@/components/ui/card";
-import { Skeleton } from "@/components/ui/skeleton";
+import { useState } from "react";
 import { Project } from "@/types/project";
 import Image from "next/image";
 import { Badge } from "@/components/ui/badge";
 import { Icon } from "@iconify/react";
 
 export default function ProjectPage() {
+  const [imageRatios, setImageRatios] = useState<Record<string, number>>({});
+  const defaultAspectRatio = 16 / 9;
+
   const data: Project[] = [
     {
       title: "Kebon",
@@ -19,6 +20,16 @@ export default function ProjectPage() {
       repo_url: "https://github.com/Laznology/kebon",
       demo_url: "https://notes.lazlab.tech",
     },
+    {
+      title: "Benkyou",
+      description:
+        "A fast, minimal, and flexible blog starter built with Astro and Tailwind CSS. Features search, dark mode, customizable theme, RSS, and View Transition API.",
+      image:
+        "https://spcvbpnwlqcdpozamryb.supabase.co/storage/v1/object/public/Images/Screenshot%20From%202025-11-01%2019-52-48.png",
+      tech_stack: ["Astro", "TailwindCSS", "TypeScript"],
+      repo_url: "https://github.com/Laznology/benkyou",
+      demo_url: "https://benkyouu.netlify.app",
+    },
   ];
 
   return (
@@ -26,9 +37,14 @@ export default function ProjectPage() {
       {data?.map((project) => (
         <div
           key={project.title}
-          className="gap-4 border-b border-dashed last:border-b-0 p-6 max-w-2xl"
+          className="w-full gap-4 border-b border-dashed last:border-b-0 p-6 max-w-2xl"
         >
-          <div className="relative w-full aspect-[16/9]">
+          <div
+            className="relative w-full aspect-[16/9]"
+            style={{
+              aspectRatio: imageRatios[project.image] ?? defaultAspectRatio,
+            }}
+          >
             <Image
               src={project.image}
               alt={project.title}
@@ -36,6 +52,14 @@ export default function ProjectPage() {
               priority
               sizes="(max-width: 768px) calc(100vw - 8rem), (max-width: 1024px) calc(100vw - 12rem), calc(100vw - 16rem)"
               className="rounded-md object-cover z-10"
+              onLoadingComplete={(img) => {
+                const ratio = img.naturalWidth / img.naturalHeight;
+                setImageRatios((prev) =>
+                  Math.abs((prev[project.image] ?? 0) - ratio) < 0.001
+                    ? prev
+                    : { ...prev, [project.image]: ratio },
+                );
+              }}
             />
             <div className="absolute inset-0 translate-x-1 translate-y-1 bg-neutral-500 rounded-sm shadow-sm z-0" />
           </div>
